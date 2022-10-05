@@ -17,3 +17,24 @@ In Jenkins, click on new item, enter the name of the pipeline, select pipeline b
 
 ## Adding Files to Github Repo
 In this step, code and commit all the necessary files to the github repo.![ Adding Files to Github Repo](images/github.png).
+
+
+## Adding Update Manifest Job
+
+Head to Jenkins, new item, enter the name of the manifest. In this case, it's the name specified in the trigger stage in the Jenkinsfile. The name should match the build image job for it to be updated. 
+In the next page, select this project is parameterized, select add a string parameter and enter the details as shown in the screenshot. Scroll below to the pipeline section and add pipeline from SCM, select Git and enter the github repo containing the deployment manifest file.
+
+![ Adding String Parameter](images/string_parameter.png).
+
+
+## Building the image
+
+Head to Jenkins dashboard and select the image job, in this case deploy_pyhton_app_2_eks_image and click on build now.
+The pipeline will clone the repository, build the image, test the image, push the image to dockerhub and update the manifest file. 
+![ Build Image](images/build_image.png).
+
+The console output image tag will change from latest to tag 1 as shown in the screeenshot.
+![ Tag 1](images/tag_1.png).
+
+The newly created image can be seen in the dockerhub repo with the tags updated and the time it updated.
+![ Tag 1](images/dockerhub_image.png).
