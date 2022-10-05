@@ -37,4 +37,54 @@ The console output image tag will change from latest to tag 1 as shown in the sc
 ![ Tag 1](images/tag_1.png).
 
 The newly created image can be seen in the dockerhub repo with the tags updated and the time it updated.
-![ Tag 1](images/dockerhub_image.png).
+![ Tag 1](images/dockerhub_image.png)
+
+
+## Creating an EKS Cluster
+
+There are many methods of creating an EKS cluster. It can be created using the eksctl command, AWS management console, AWS CLI, IAC and other management tools.
+
+In this demo, a simple EKS cluster is created using the eksctl command. Modify the command below specifying the name of the cluster, regio code, version, and networking tools.
+'''
+eksctl create cluster --name my-cluster --region region-code --version 1.23 --vpc-private-subnets subnet-ExampleID1,subnet-ExampleID2 --without-nodegroup
+'''
+![ Cluster Created](images/cluster.png).
+
+
+## Installing Argo CD
+
+Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes. 
+In this demo, Argo CD will be installed using the eksctl commands.
+
+### Install Argo CD
+
+First, create a namespace and add the install yaml files.
+'''
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+'''
+The next, download the argocd using homebrew or CLI installation method.
+
+Continue setup later
+
+
+
+## Configuring the Application on argocd.
+
+Head to argocd dashboard using localhost:8080 and click on new app, enter the name of the application as in the deployment.yaml file (in this case, flaskdemo), project default, sync policy as automatic so that argocd can check the state of the cluster automatically. 
+Copy the repository URL hosting the deployment.yaml manifest file and add in the git repository URL field. Also, enter the cluster URL and namespace. Click on create. 
+![ Application created in Argo CD](images/argocd.png).
+
+Argo Cd creates a load balancer service and deploy the application to the cluster, create the number of replicas specified in the yaml file, check the health of the application and sync with the application. 
+![App showing svc, lb and the pods](images/argocd2.png)
+
+Kubectl get pods shows the pods running. ![Pods Running](images/pods.png).
+Inorder to get the load balancer url, use the command
+```
+ kubectl get svc
+ ```
+  ![SVC](images/svc.png).
+
+  In order to access the application, Copy the external Ip of the load balancer service, open a new browser tap and paste it in. There we can see the application.
+    ![SVC on webpage](images/svc2.png).
+
