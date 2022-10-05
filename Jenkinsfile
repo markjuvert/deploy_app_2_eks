@@ -9,7 +9,7 @@ node {
 
     stage('Build image') {
 
-       app = docker.build("raj80dockerid/test")
+       app = docker.build("juvertm/deploy_python_app_2_eks")
     }
 
     stage('Test image') {
