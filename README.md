@@ -1,8 +1,8 @@
 # deploy_app_2_eks
-Deploying a Python Application to EKS uisng Jenkins and GitOps pipelin
+Deploying a Python Application to EKS using Jenkins and GitOps pipeline
 
 
-The CICD pipeline starts with creating Jenkins server and installing jenkins. Also install a;; the necessary plugins such as EC2 plugins, github plugins, docker plugins, Parameterized trigger Plugin,  GitHub Integration Plugin and so on.  ![Installing Plugins](images/plugin.png). 
+The CICD pipeline starts with creating Jenkins server and installing jenkins. Also install all the necessary plugins such as EC2 plugins, github plugins, docker plugins, Parameterized trigger Plugin,  GitHub Integration Plugin and so on.  ![Installing Plugins](images/plugin.png). 
 
 Next, configure EC2 as Jenkins agent. Under manage jenkins, head to manage clouds, configure clouds and fill in all the necessary information.
 
@@ -45,9 +45,9 @@ The newly created image can be seen in the dockerhub repo with the tags updated 
 There are many methods of creating an EKS cluster. It can be created using the eksctl command, AWS management console, AWS CLI, IAC and other management tools.
 
 In this demo, a simple EKS cluster is created using the eksctl command. Modify the command below specifying the name of the cluster, regio code, version, and networking tools.
-'''
+```
 eksctl create cluster --name my-cluster --region region-code --version 1.23 --vpc-private-subnets subnet-ExampleID1,subnet-ExampleID2 --without-nodegroup
-'''
+```
 ![ Cluster Created](images/cluster.png).
 
 
@@ -88,3 +88,4 @@ Inorder to get the load balancer url, use the command
   In order to access the application, Copy the external Ip of the load balancer service, open a new browser tap and paste it in. There we can see the application.
     ![SVC on webpage](images/svc2.png).
 
+docs.aws.amazon.com/eks/latest/userguide/eks-guestbook.html
